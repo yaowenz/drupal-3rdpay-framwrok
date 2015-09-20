@@ -1,0 +1,6 @@
+name = "Online Payment Framework"
+description = "在线支付框架"
+package = "E-Commerce"
+version = "7.x-1.0"
+core = "7.x"
+php = 5.4

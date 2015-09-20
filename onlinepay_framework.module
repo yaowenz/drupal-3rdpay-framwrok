@@ -1,0 +1,60 @@
+<?php
+module_load_include('inc', 'onlinepay_framework', 'onlinepay_framework.entity');
+module_load_include('inc', 'onlinepay_framework', 'onlinepay_framework.admin');
+module_load_include('inc', 'onlinepay_framework', 'onlinepay_framework.api');
+
+function onlinepay_framework_menu() {
+	$items['admin/content/payment'] = array(
+		'title' => '支付记录',
+		//'description' => '',	
+		'page callback' => 'payment_admin_content',
+		//'title callback' => 'artwork_type_page_title',
+		//'title arguments' => array(4),	
+		//'page arguments' => array(4),	
+		'access callback' => true,
+		//'access arguments' => array('administer artworks'),
+		'weight' => 5,
+	);
+// 	$items['admin/structure/artworks/manage/%artwork_type'] = array(
+// 		'title' => 'View artwork type',
+// 		'title callback' => 'artwork_type_page_title',
+// 		'title arguments' => array(4),
+// 		'page callback' => 'artwork_information',
+// 		'page arguments' => array(4),
+// 		'access arguments' => true, //array('administer artworks'),
+// 	);
+// 	$items['admin/structure/artworks/manage/%artwork_type/view'] = array(
+// 		'title' => 'View',
+// 		'type' => MENU_DEFAULT_LOCAL_TASK,
+// 	);
+	return $items;
+}
+
+/**
+ * Implement of HOOK_entity_info
+ * @return multitype:string boolean multitype: multitype:string  Ambigous <The, string, A, Optional>
+ */
+function onlinepay_framework_entity_info () {
+	$return['payment'] = array(
+		'label' => t('支付记录'),
+		'controller class' => 'PaymentController',
+		'base table' => 'payment',
+		//'revision table' => 'artwork_revision',
+		'uri callback' => 'payment_uri',
+		'fieldable' => false,
+		'entity keys' => array('id' => 'id'),
+		'bundle keys' => array(),
+		'static cache' => TRUE,
+		'bundles' => array(		
+// 			'payment_standard' => array(
+// 				'label' => t('支付记录'),
+// 				'admin' => array(
+// 				'path' => 'admin/payment/manage',
+// 				//'access arguments' => array('administer entity_example_basic entities'),		
+// 				),
+// 			),
+		),
+		'view modes' => array()
+	);
+	return $return;
+}

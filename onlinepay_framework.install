@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Install file for Weixin Marketing module.
+ */
+/**
+ * Implements hook_install().
+ */
+function onlinepay_framework_install() {
+	return;	
+}
+
+function onlinepay_framework_schema() {	
+	$schema = array();	
+	$schema['payment'] = array (
+		'description' => '',
+		'fields' => array (
+			'id' => array ('type' => 'serial', 'size' => 'normal', 'unsigned' => TRUE, 'not null' => TRUE),
+			//TODO uid related or removed
+			'uid' => array('type' => 'int', 'size' => 'normal', 'unsigned' => TRUE, 'not null' => TRUE,	'default' => 0, 'description' => ''),
+			'platform' => array('type' => 'varchar','length' => '30', 'not null' => true, 'default' => ''), // alipay, wx 
+			'out_trade_no' => array('type' => 'varchar', 'length' => '100', 'not null' => true, 'default' => ''),
+			'amount' => array('type' => 'int', 'default' => 0, 'not null' => true, 'unsigned' => true),
+			'currency' => array('type' => 'varchar','length' => '30', 'not null' => true, 'default' => ''), // CNY, USD
+			'type' => array('type' => 'varchar','length' => '20', 'not null' => true, 'default' => ''), // pay or refund
+			'detail' => array('type' => 'text'),
+			'created_at' => array ('type' => 'int',	'not null' => TRUE,	'default' => 0,	'unsigned' => TRUE),
+			'paid_at' => array ('type' => 'int',	'not null' => TRUE,	'default' => 0,	'unsigned' => TRUE)
+		),
+		'unique keys' => array ('U_trade_no' => array ('platform','out_trade_no')),
+		'indexes' => array('I_uid' => array('uid'), 'I_type' => array('type'),),
+		'primary key' => array('id'),
+		'mysql_character_set' => 'utf8mb4',
+		'collation' => 'utf8mb4_general_ci',
+	);
+	return $schema;
+}
