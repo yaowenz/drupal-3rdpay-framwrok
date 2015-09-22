@@ -17,7 +17,7 @@ function payment_admin_content() {
 			$rows[] = array(
 				'data' => array(
 					'id' => l($entity->id, entity_uri('payment', $entity)['path']),
-					'uid' => $entity->uid,
+					'uid' => $entity->uid, // @TODO 增加一个hook去获取相应用户信息
 					'platform' => $entity->platform,
 					'amount' => $entity->currency . " " . sprintf("%.2f", ($entity->amount / 100)),
 					'type' => $entity->type,
